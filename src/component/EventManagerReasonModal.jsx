@@ -45,7 +45,7 @@ const EventManagerReasonModal = ({ isModalOpen, setIsModalOpen, userId }) => {
       await axios.post(
         `${baseUrl}/event-managers/restrict-eventmanager`,
         {
-          profileId: userId,
+          profileId: userId, // Use userId here
           reason,
         },
         config
@@ -54,7 +54,9 @@ const EventManagerReasonModal = ({ isModalOpen, setIsModalOpen, userId }) => {
 
       setIsModalOpen(false);
 
-      console.log(profileId, reason);
+      dispatch(getBookingsApi());
+
+      console.log(userId, reason); // Change profileId to userId
     } catch (err) {
       const errorMessage =
         err.response?.data?.message || err.message || "An error occurred";

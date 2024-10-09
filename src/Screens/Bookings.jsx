@@ -24,6 +24,8 @@ import { DeleteBookingApi } from "../features/slicer/DeleteBookingSlicer";
 import EventManagerReasonModal from "../component/EventManagerReasonModal";
 import { toast } from "react-toastify"; // Make sure to import toast for notifications
 import { getUsersApi } from "../features/slicer/UsersSlicer"; // Assuming you have this for refreshing user list
+import { baseUrl, config } from "../features/slicer/Slicer";
+import BookingDetailModal from "../component/eventManagerModal";
 
 const Bookings = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -32,6 +34,7 @@ const Bookings = () => {
   const { AllBookings, isLoading: Loading } = useSelector(
     (state) => state.BookingSlicer
   );
+  console.log("sadsa", AllBookings);
 
   const { isLoading: isRespondLoading } = useSelector(
     (state) => state.RespondBookingSlicer
@@ -78,6 +81,7 @@ const Bookings = () => {
         config
       );
       toast.success("User Unblocked Successfully"); // Success toast
+      window.location.reload();
     } catch (err) {
       const errorMessage =
         err.response?.data?.message || err.message || "An error occurred";
@@ -110,14 +114,13 @@ const Bookings = () => {
           <Chip color="gray" value={booking.profile_staus} />
         </td>
         <td className="border px-4 py-2 flex justify-center gap-10 items-center">
-          <Tooltip content="block/unblock">
+          <Tooltip content="Restrict/UnRestricts">
             <Switch
               checked={booking?.profile_staus === "Restricted"} // Check if user is restricted
               onChange={
-                () => handleToggleBlock(booking?._id, booking?.isRestricted) // Handle toggle action
+                () => handleToggleBlock(booking?._id, booking?.profile_staus) // Handle toggle action
               }
               color="red"
-              label={booking?.isRestricted ? "Blocked" : "Unblocked"} // Set label based on restriction status
             />
           </Tooltip>
 
@@ -265,7 +268,7 @@ const Bookings = () => {
         handleClose={handleCloseModal}
         bookingId={bookingId}
       />
-      <BookingDetailsModal
+      <BookingDetailModal
         open={detailsModal}
         handleClose={handleCloseDetailsModal}
         booking={selectedBooking}
