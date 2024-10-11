@@ -1,6 +1,11 @@
 import axios from "axios"; // Ensure you have axios installed
 import { useEffect, useState } from "react";
-import { TrashIcon, EyeIcon } from "@heroicons/react/24/solid";
+import {
+  TrashIcon,
+  EyeIcon,
+  CheckIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/solid";
 import {
   Chip,
   IconButton,
@@ -59,6 +64,38 @@ const Bookings = () => {
     }
   };
 
+  const handleRejectEventManager = async (profileId) => {
+    try {
+      await axios.post(
+        `${baseUrl}/event-managers/reject-profile`, // Your API endpoint for rejection
+        { profileId, reason }, // Change this to match the required format
+        config
+      );
+      toast.success("Event Manager Rejected Successfully"); // Success toast
+      window.location.reload(); // Refresh the page or update the state as needed
+    } catch (err) {
+      const errorMessage =
+        err.response?.data?.message || err.message || "An error occurred";
+      toast.error(errorMessage); // Error toast
+    }
+  };
+
+  // New function to approve the event manager
+  const approveEventManager = async (profileId) => {
+    try {
+      await axios.post(
+        `${baseUrl}/event-managers/approve-profile`, // Your API endpoint for approval
+        { profileId }, // Change this to match the required format
+        config
+      );
+      toast.success("Event Manager Approved Successfully"); // Success toast
+      window.location.reload(); // Refresh the page or update the state as needed
+    } catch (err) {
+      const errorMessage =
+        err.response?.data?.message || err.message || "An error occurred";
+      toast.error(errorMessage); // Error toast
+    }
+  };
   // Block/Unblock toggle karne ka function
   const handleToggleBlock = (Id, profile_staus) => {
     console.log(`Toggling block for ID: ${Id}, Status: ${profile_staus}`);
@@ -140,6 +177,22 @@ const Bookings = () => {
               <TrashIcon className="h-5 w-5" />
             </IconButton>
           </Tooltip>
+          {/* <Tooltip content="Approve Event Manager">
+            <IconButton
+              color="green"
+              onClick={() => approveEventManager(booking._id)}
+            >
+              <CheckIcon className="h-5 w-5" />
+            </IconButton>
+          </Tooltip>
+          <Tooltip content="Reject Event Manager">
+            <IconButton
+              color="red"
+              onClick={() => handleRejectEventManager(booking._id)}
+            >
+              <XMarkIcon className="h-5 w-5" />
+            </IconButton>
+          </Tooltip> */}
         </td>
       </tr>
     ));

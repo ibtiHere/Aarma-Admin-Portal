@@ -10,6 +10,7 @@ import { getBookingsApi } from "./features/slicer/EventManagerSlicer";
 import { getHotelApi } from "./features/slicer/HotelSlicer";
 import { getContactApi } from "./features/slicer/GetAllContactForm";
 import Test from "./Screens/test";
+import "@coreui/coreui/dist/css/coreui.min.css";
 
 function App() {
   const Token = localStorage.getItem("Token");

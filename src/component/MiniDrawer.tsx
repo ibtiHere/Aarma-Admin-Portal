@@ -50,16 +50,16 @@ const tabs = [
     link: "/booking",
     icon: <UserGroupIcon className="h-5 w-5" />,
   },
-  {
-    title: "Hotels",
-    link: "/hotels",
-    icon: <HomeModernIcon className="h-5 w-5" />,
-  },
-  {
-    title: "Contact Forms",
-    link: "/contactform",
-    icon: <InboxStackIcon className="h-5 w-5" />,
-  },
+  // {
+  //   title: "Hotels",
+  //   link: "/hotels",
+  //   icon: <HomeModernIcon className="h-5 w-5" />,
+  // },
+  // {
+  //   title: "Contact Forms",
+  //   link: "/contactform",
+  //   icon: <InboxStackIcon className="h-5 w-5" />,
+  // },
 ];
 
 const openedMixin = (theme: Theme): CSSObject => ({
